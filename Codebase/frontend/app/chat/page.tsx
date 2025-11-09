@@ -181,8 +181,8 @@ export default function Chat() {
 				);
 				if (restaurantResponse.ok) {
 					restaurantData = await restaurantResponse.json();
-					setRestaurant(restaurantData); // Keep for modal
-					console.log("Restaurant loaded:", restaurantData.name);
+					setRestaurant(restaurantData || null); // Keep for modal
+					console.log("Restaurant loaded:", restaurantData?.name);
 				}
 			} catch (error) {
 				console.error("Error fetching restaurant:", error);
