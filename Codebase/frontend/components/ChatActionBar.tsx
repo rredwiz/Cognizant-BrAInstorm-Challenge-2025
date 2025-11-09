@@ -1,0 +1,128 @@
+"use client";
+
+import { Ellipsis, MessageCircle, Send } from "lucide-react";
+import { Carrot } from "lucide-react";
+import { Tooltip } from "@heroui/tooltip";
+
+interface ChatActionBarProps {
+	onImageClick: () => void;
+	onUtensilClick: () => void;
+	onMessageClick: () => void;
+	onSendClick: () => void;
+	isInputVisible: boolean;
+	message: string;
+	onMessageChange: (value: string) => void;
+	isDisabled?: boolean;
+}
+
+export default function ChatActionBar({
+	onImageClick,
+	onUtensilClick,
+	onMessageClick,
+	onSendClick,
+	isInputVisible,
+	message,
+	onMessageChange,
+	isDisabled = false,
+}: ChatActionBarProps) {
+	return (
+		<div
+			className={`flex items-center justify-center gap-2 bg-white p-4 rounded-full shadow-sm border border-gray-300 ${
+				isDisabled ? "opacity-50 pointer-events-none" : ""
+			}`}
+		>
+			<Tooltip
+				content={
+					<div className="flex bg-black/50 text-white px-2 py-1 rounded-full items-center gap-2">
+						Ingredients
+					</div>
+				}
+				showArrow={true}
+				color="foreground"
+				delay={0}
+				closeDelay={0}
+			>
+				<button
+					onClick={onImageClick}
+					disabled={isDisabled}
+					className="rounded-full bg-gray-200 hover:bg-blue-600 p-3 text-black hover:text-white transition-colors flex items-center justify-center disabled:cursor-not-allowed disabled:opacity-50"
+				>
+					<Carrot size={20} />
+				</button>
+			</Tooltip>
+			<Tooltip
+				content={
+					<div className="flex bg-black/50 text-white px-2 py-1 rounded-full items-center gap-2">
+						Options
+					</div>
+				}
+				showArrow={true}
+				color="foreground"
+				delay={0}
+				closeDelay={0}
+			>
+				<button
+					onClick={onUtensilClick}
+					disabled={isDisabled}
+					className="rounded-full bg-gray-200 hover:bg-blue-600 p-3 text-black hover:text-white transition-colors flex items-center justify-center disabled:cursor-not-allowed disabled:opacity-50"
+				>
+					<Ellipsis size={20} />
+				</button>
+			</Tooltip>
+			<Tooltip
+				content={
+					<div className="flex bg-black/50 text-white px-2 py-1 rounded-full items-center gap-2">
+						Message
+					</div>
+				}
+				showArrow={true}
+				color="foreground"
+				delay={0}
+				closeDelay={0}
+			>
+				<button
+					onClick={onMessageClick}
+					disabled={isDisabled}
+					className="rounded-full bg-gray-200 hover:bg-blue-600 p-3 text-black hover:text-white transition-colors flex items-center justify-center disabled:cursor-not-allowed disabled:opacity-50"
+				>
+					<MessageCircle size={20} />
+				</button>
+			</Tooltip>
+			<div
+				className={`overflow-hidden transition-all duration-500 ease-in-out ${
+					isInputVisible
+						? "max-w-md opacity-100"
+						: "max-w-0 opacity-0"
+				}`}
+			>
+				<input
+					type="text"
+					placeholder="Add any specifications..."
+					value={message}
+					onChange={(e) => onMessageChange(e.target.value)}
+					disabled={isDisabled}
+					className="text-gray-700 px-4 py-2 rounded-full border border-gray-300 focus:bg-gray-100 w-80 outline-none disabled:cursor-not-allowed disabled:opacity-50"
+				/>
+			</div>
+			<Tooltip
+				content={
+					<div className="flex bg-black/50 text-white px-2 py-1 rounded-full items-center gap-2">
+						Send
+					</div>
+				}
+				showArrow={true}
+				color="foreground"
+				delay={0}
+				closeDelay={0}
+			>
+				<button
+					onClick={onSendClick}
+					disabled={isDisabled}
+					className="rounded-full bg-green-600 hover:bg-green-700 p-3 text-white transition-colors flex items-center justify-center disabled:cursor-not-allowed disabled:opacity-50"
+				>
+					<Send size={20} />
+				</button>
+			</Tooltip>
+		</div>
+	);
+}
