@@ -198,6 +198,9 @@ async def detect(images: List[UploadFile] = File(...)):
         try:
             contents = await img_file.read()
             image = Image.open(io.BytesIO(contents))
+            # Convert to RGB if not already (handles RGBA, P, L, etc.)
+            if image.mode != 'RGB':
+                image = image.convert('RGB')
             ingredients = get_ingredients_from_image(image)
             all_ingredients.update(ingredients)
         except Exception as e:
