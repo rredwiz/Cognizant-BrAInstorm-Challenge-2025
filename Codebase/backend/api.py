@@ -41,7 +41,6 @@ app.mount("/static", StaticFiles(directory="."), name="static")
 try:
     print("--- Checking for Gemini API key... ---")
     GEMINI_API_KEY = os.environ["GEMINI_API_KEY"]
-    print(f"--- Gemini API key: {GEMINI_API_KEY} ---")
     genai.configure(api_key=GEMINI_API_KEY)
     generation_config = {
         "response_mime_type": "application/json",
