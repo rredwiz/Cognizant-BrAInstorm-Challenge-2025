@@ -272,8 +272,10 @@ async def get_random_restaurant():
             restaurant = random.choice(restaurants)
             
             # Update image path to be accessible via static files
+            # Use environment variable for base URL (works for both local and production)
             if restaurant.get("img"):
-                restaurant["img"] = f"http://localhost:8000/static/{restaurant['img']}"
+                base_url = os.getenv("BASE_URL", "http://localhost:8000")
+                restaurant["img"] = f"{base_url}/static/{restaurant['img']}"
             
             return restaurant
     except FileNotFoundError:
