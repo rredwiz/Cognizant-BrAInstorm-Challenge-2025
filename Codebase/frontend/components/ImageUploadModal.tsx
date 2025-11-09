@@ -109,7 +109,7 @@ export default function ImageUploadModal({
 								Drop images here or click to browse
 							</p>
 							<p className="text-sm text-gray-500 mt-2">
-								Supports: JPG, PNG, GIF, WebP
+								Supports: .JPG files only
 							</p>
 						</div>
 					)}
