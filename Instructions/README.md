@@ -38,9 +38,9 @@ Document exactly how judges or mentors can experience your solution. Update this
 | ---------------- | --------------------------------------- | -------------------------- |
 | `GEMINI_API_KEY` | Google Gemini API for recipe generation | `AIzaSyDxxxxxxxxxxxxxxxxx` |
 
-## Hosted Demo / Video
+## Demo / Video
 
--   Video walkthrough: [Add URL](https://example.com/video)
+-   Video walkthrough: [Sustainabite Demo](https://youtu.be/ipDBAh7LYM4)
 
 ## Troubleshooting
 
