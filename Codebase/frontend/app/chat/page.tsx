@@ -33,6 +33,7 @@ interface ChatMessage {
 	isBot: boolean;
 	timestamp: Date;
 	recipes?: Recipe[];
+	restaurant?: Restaurant;
 }
 
 export default function Chat() {
@@ -172,6 +173,21 @@ export default function Chat() {
 				});
 			}
 
+			// Fetch random restaurant for the 4th card slot
+			let restaurantData: Restaurant | undefined;
+			try {
+				const restaurantResponse = await fetch(
+					"http://localhost:8000/api/restaurant"
+				);
+				if (restaurantResponse.ok) {
+					restaurantData = await restaurantResponse.json();
+					setRestaurant(restaurantData); // Keep for modal
+					console.log("Restaurant loaded:", restaurantData.name);
+				}
+			} catch (error) {
+				console.error("Error fetching restaurant:", error);
+			}
+
 			// Remove loading message and add recipe response to chat
 			setChatMessages((prev) => {
 				const filtered = prev.filter(
@@ -186,25 +202,12 @@ export default function Chat() {
 							isBot: true,
 							timestamp: new Date(),
 							recipes: data.recipes,
+							restaurant: restaurantData, // Store restaurant per message
 						},
 					];
 				}
 				return filtered;
 			});
-
-			// Fetch random restaurant for the 4th card slot
-			try {
-				const restaurantResponse = await fetch(
-					"http://localhost:8000/api/restaurant"
-				);
-				if (restaurantResponse.ok) {
-					const restaurantData = await restaurantResponse.json();
-					setRestaurant(restaurantData);
-					console.log("Restaurant loaded:", restaurantData.name);
-				}
-			} catch (error) {
-				console.error("Error fetching restaurant:", error);
-			}
 		} catch (error) {
 			console.error("=== Error Making API Call ===");
 			console.error("Error:", error);
@@ -355,12 +358,15 @@ export default function Chat() {
 													{/* Restaurant card in 4th slot */}
 													{msg.recipes!.length ===
 														3 &&
-														restaurant && (
+														msg.restaurant && (
 															<RestaurantCard
 																restaurant={
-																	restaurant
+																	msg.restaurant
 																}
 																onClick={() => {
+																	setRestaurant(
+																		msg.restaurant!
+																	);
 																	setIsRestaurantModalOpen(
 																		true
 																	);
